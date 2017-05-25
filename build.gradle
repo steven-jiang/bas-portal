@@ -31,7 +31,6 @@ allprojects {
 	}
 	
 	compileJava {
-		//enable compilation in a separate daemon process
 		options.fork = true
 		
 		options.encoding = "UTF-8"
