@@ -1,0 +1,4 @@
+rootProject.name = 'backend'
+include 'thing-schema'
+include 'bas-web-portal'
+include 'bas-commons'

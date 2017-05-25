@@ -1,0 +1,30 @@
+apply plugin: 'war'
+
+ext {
+}
+dependencies {
+	
+	compile project(":bas-commons")
+	compile project(":thing-schema")
+
+	compile "org.springframework:spring-webmvc:${springVersion}"
+	compile "org.springframework:spring-websocket:${springVersion}"
+	
+	providedCompile "javax.servlet:javax.servlet-api:3.0.1"
+	
+	
+}
+
+war {
+	doFirst {
+		manifest {
+			attributes(
+					"Implementation-Title": "bas-portal",
+					"Implementation-Version": "git rev-parse --short HEAD".execute().text.trim(),
+					"Implementation-Timestamp": new Date().format("yyyy-MM-dd HH:mm:ss")
+			)
+		}
+	}
+	
+	archiveName "bas-portal.war"
+}

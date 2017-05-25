@@ -1,0 +1,25 @@
+<ehcache>
+    <diskStore path="java.io.tmpdir"/>
+
+    <cache name="short_cache"
+           maxEntriesLocalHeap="10000"
+           maxEntriesLocalDisk="10000000"
+           timeToIdleSeconds="60"
+           timeToLiveSeconds="600">
+    </cache>
+
+    <cache name="long_live_cache"
+           maxEntriesLocalHeap="10000"
+           maxEntriesLocalDisk="10000000"
+           timeToIdleSeconds="60"
+           timeToLiveSeconds="3600">
+    </cache>
+
+    <cache name="persistence_cache"
+           maxEntriesLocalHeap="10000"
+           maxEntriesLocalDisk="10000000"
+           timeToLiveSeconds="36000">
+    </cache>
+
+
+</ehcache>

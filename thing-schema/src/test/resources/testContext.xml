@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd"
+
+>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="fileEncoding" value="UTF8"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="properties">
+            <value>
+                store.mongoDB.connectUrl=mongodb://127.0.0.1:27017
+                store.mongoDB.dbName=bas
+            </value>
+        </property>
+    </bean>
+
+    <import resource="../../../../bas-commons/src/main/resources/com/kii/bas/config/commCtx.xml"/>
+
+    <context:annotation-config/>
+
+    <context:component-scan base-package="com.kii.bas.service.schema"/>
+
+    <bean class="com.kii.bas.commons.store.mongo.MongoClientFactory"/>
+
+    <bean class="com.kii.bas.commons.log.LogConfigLoader">
+        <constructor-arg value="classpath:com/kii/bas/service/schema/test/log4j.local.xml"/>
+    </bean>
+</beans>

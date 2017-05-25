@@ -1,0 +1,1 @@
+ java -Dspring.profile=local -jar ~/workspace/rule-engine/jetty/jetty-runner-9.4.2.jar  --port 6060  webConfig.xml

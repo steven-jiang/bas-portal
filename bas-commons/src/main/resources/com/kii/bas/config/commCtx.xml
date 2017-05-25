@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+                  http://www.springframework.org/schema/task
+         http://www.springframework.org/schema/task/spring-task.xsd
+         http://www.springframework.org/schema/cache
+         http://www.springframework.org/schema/cache/spring-cache.xsd"
+>
+
+
+    <cache:annotation-driven/>
+
+    <bean id="cacheManager"
+          class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcache"/>
+    </bean>
+
+    <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:com/kii/bas/config/cache/ehcache.xml"/>
+    </bean>
+
+    <bean class="com.kii.bas.commons.json.SafeObjectMapper"/>
+
+
+    <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
+
+    <bean id="myExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="10"/>
+        <property name="maxPoolSize" value="20"/>
+        <property name="queueCapacity" value="25"/>
+    </bean>
+
+    <task:scheduler id="myScheduler" pool-size="5"/>
+
+
+</beans>
