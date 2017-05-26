@@ -11,6 +11,10 @@ store.mongoDB.dbName=*[mongoDB name]*
 
 对应后文不同profile设置，编辑不同名称的properties文件，指定对应的mongoDB连接
 
+为安全见，可以通过Jvm 参数传递参数，不必编辑配置文件
+例：
+java   ...  -Dstore.mongoDB.connectUrl=mongodb://localhost:27017  ....
+
 2. log配置
 
 com/kii/bas/config/log4j.*[profile]*.xml

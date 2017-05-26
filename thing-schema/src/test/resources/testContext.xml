@@ -9,12 +9,14 @@
 
 >
 
+    <!-- value>
+    store.mongoDB.connectUrl=mongodb://127.0.0.1:27017
+</value -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="fileEncoding" value="UTF8"/>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="properties">
             <value>
-                store.mongoDB.connectUrl=mongodb://127.0.0.1:27017
                 store.mongoDB.dbName=bas
             </value>
         </property>
