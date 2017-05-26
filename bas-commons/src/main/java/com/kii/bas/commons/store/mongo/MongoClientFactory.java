@@ -21,6 +21,7 @@ public class MongoClientFactory {
 		
 		MongoClientURI connectionString = new MongoClientURI(url);
 		
+		
 		MongoClient mongoClient = new MongoClient(connectionString);
 		
 		return mongoClient.getDatabase(dbName);

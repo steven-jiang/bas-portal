@@ -26,6 +26,7 @@ public class DeviceFullDescription {
 	private Map<String, PointFullDescription> pointsMap = new HashMap<>();
 	private Map<String, ActionFullDescription> actionsMap = new HashMap<>();
 	private Map<String, ReferenceObject> references = new HashMap<>();
+	private Map<String, Object> additionInfos = new HashMap<>();
 	private String errorInfoName;
 	private EnumObject errorInfo;
 	private Map<String, String> errorInfoDict;
@@ -62,6 +63,9 @@ public class DeviceFullDescription {
 			actionsMap.put(v.getName(), new ActionFullDescription(point, v));
 		});
 		
+		
+		additionInfos = new HashMap<>(description.getAdditionInfos());
+		
 	}
 	
 	
@@ -89,6 +93,12 @@ public class DeviceFullDescription {
 		superDesc.actionsMap.forEach((k, v) -> {
 			actionsMap.computeIfAbsent(k, (key) -> {
 				return new ActionFullDescription(schema.getActionsMap().get(k), v);
+			});
+		});
+		
+		superDesc.additionInfos.forEach((k, v) -> {
+			additionInfos.computeIfAbsent(k, (key) -> {
+				return v;
 			});
 		});
 		
@@ -142,5 +152,13 @@ public class DeviceFullDescription {
 	
 	public void setDeleted(boolean deleted) {
 		isDeleted = deleted;
+	}
+	
+	public Map<String, Object> getAdditionInfos() {
+		return additionInfos;
+	}
+	
+	public void setAdditionInfos(Map<String, Object> additionInfos) {
+		this.additionInfos = additionInfos;
 	}
 }

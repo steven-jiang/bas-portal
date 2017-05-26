@@ -16,6 +16,8 @@ public class DeviceDescription extends StoreEntity {
 	
 	private String description;
 	
+	private Map<String, Object> additionInfos = new HashMap<>();
+	
 	private Map<String, String> errorInfoDict = new HashMap<>();
 	
 	private Map<String, PointDescription> pointsMap = new HashMap<>();
@@ -48,6 +50,7 @@ public class DeviceDescription extends StoreEntity {
 			actionsMap.put(k, new ActionDescription(v));
 		});
 		
+		
 	}
 	
 	public DeviceDescription(DeviceDescription schema) {
@@ -57,8 +60,17 @@ public class DeviceDescription extends StoreEntity {
 		this.errorInfoDict = new HashMap<>(schema.errorInfoDict);
 		this.deviceType = schema.deviceType;
 		this.description = schema.description;
+		this.additionInfos = schema.additionInfos;
 	}
 	
+	
+	public Map<String, Object> getAdditionInfos() {
+		return additionInfos;
+	}
+	
+	public void setAdditionInfos(Map<String, Object> additionInfos) {
+		this.additionInfos = additionInfos;
+	}
 	
 	public DeviceDescription combineSuperDescription(DeviceDescription desc) {
 		
@@ -81,6 +93,12 @@ public class DeviceDescription extends StoreEntity {
 		if (description == null) {
 			this.description = desc.getDescription();
 		}
+		
+		desc.additionInfos.forEach((k, a) -> {
+			additionInfos.computeIfAbsent(k, (name) -> {
+				return a;
+			});
+		});
 		return this;
 	}
 	

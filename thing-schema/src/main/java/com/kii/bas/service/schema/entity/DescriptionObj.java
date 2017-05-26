@@ -12,6 +12,8 @@ public class DescriptionObj {
 	
 	private Map<String, String> enumDict = new HashMap<>();
 	
+	private Map<String, String> refPointDict = new HashMap<>();
+	
 	public DescriptionObj(SchemaObj obj) {
 		
 		unit = null;
@@ -25,6 +27,14 @@ public class DescriptionObj {
 	
 	public DescriptionObj() {
 		
+	}
+	
+	public Map<String, String> getRefPointDict() {
+		return refPointDict;
+	}
+	
+	public void setRefPointDict(Map<String, String> refPointDict) {
+		this.refPointDict = refPointDict;
 	}
 	
 	public String getUnit() {

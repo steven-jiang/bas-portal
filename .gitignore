@@ -21,6 +21,7 @@ tmp/
 env.properties
 **/*.local.properties
 **/*.local.xml
+**/*local.sh
 git.*.properties
 *.swp
 *.log
