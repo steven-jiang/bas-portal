@@ -12,13 +12,12 @@ public class JettyWebEnvLoader {
 		
 		System.setProperty("spring.profile", "local");
 
-//		Resource fileserver_xml = Resource.newResource("./jetty/jettyConfig.xml");
-//		XmlConfiguration configuration = new XmlConfiguration(fileserver_xml.getInputStream());
 		Server server = new Server(7070);
 		
 		WebAppContext webapp = new WebAppContext();
 		
 		webapp.setContextPath("/bas");
+		
 		
 		File warFile = new File("bas-web-portal/src/main/webapp/");
 		
