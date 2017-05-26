@@ -98,6 +98,5 @@ public class BasWebMvcConfig extends WebMvcConfigurerAdapter implements WebSocke
 		
 		configurer.setDefaultTimeout(60 * 1000l);
 		
-		
 	}
 }
