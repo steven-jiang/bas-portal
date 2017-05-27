@@ -1,5 +1,4 @@
 !.gitignore
-!gradle/
 
 .svn
 .classpath
@@ -18,7 +17,6 @@ tmp/
 .springBeans
 .idea/
 *.iml
-*.jar
 env.properties
 **/*.local.properties
 **/*.local.xml
