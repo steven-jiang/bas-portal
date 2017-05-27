@@ -1,4 +1,5 @@
 !.gitignore
+!gradle/
 
 .svn
 .classpath
