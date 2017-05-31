@@ -9,7 +9,7 @@ import com.kii.bas.service.schema.dao.UpdatedInfo;
 import com.kii.bas.service.schema.entity.DeviceDescription;
 import com.kii.bas.service.schema.entity.DeviceSchema;
 
-public class DeviceDescriptionMap {
+public class DeviceDescriptionStore {
 	
 	
 	private Map<String, DeviceFullDescription> schemaMap = new HashMap<>();
@@ -17,7 +17,7 @@ public class DeviceDescriptionMap {
 	private Map<String, DeviceDescription> originMap = new HashMap();
 	
 	
-	public DeviceDescriptionMap(Map<String, DeviceSchema> extendsData, Map<String, DeviceDescription> origin) {
+	public DeviceDescriptionStore(Map<String, DeviceSchema> extendsData, Map<String, DeviceDescription> origin) {
 		
 		this.originMap = origin;
 		

@@ -137,12 +137,27 @@ public abstract class AbstractDataAccess<T extends StoreEntity> {
 	protected UpdateResult updateEntity(Map<String, Object> fields, String id) {
 		
 		Bson filter = getIDQuery(id);
-
+		
 		Document doc = getDocument(fields);
+		
+		return updateOrAddEntity(doc, filter, false);
+	}
+	
+	protected UpdateResult updateOrInsertEntity(Map<String, Object> fields, String id) {
+		
+		Bson filter = getIDQuery(id);
+		
+		Document doc = getDocument(fields);
+		
+		return updateOrAddEntity(doc, filter, true);
+	}
+	
+	private UpdateResult updateOrAddEntity(Document doc, Bson filter, boolean withInsert) {
+		
 		doc.remove("_id");
 		doc = addModifyTag(doc);
 		
-		return getCollect().updateOne(filter, doc);
+		return getCollect().updateOne(filter, doc, new UpdateOptions().upsert(withInsert));
 		
 	}
 	
@@ -151,10 +166,18 @@ public abstract class AbstractDataAccess<T extends StoreEntity> {
 		Bson filter = getIDQuery(id);
 
 		Document doc = getDocument(entity);
-		doc.remove("_id");
-		doc = addModifyTag(doc);
 		
-		return getCollect().updateOne(filter, doc);
+		return updateOrAddEntity(doc, filter, false);
+		
+	}
+	
+	protected UpdateResult updateOrInsertEntity(T entity, String id) {
+		
+		Bson filter = getIDQuery(id);
+		
+		Document doc = getDocument(entity);
+		
+		return updateOrAddEntity(doc, filter, true);
 		
 	}
 	

@@ -15,7 +15,7 @@ import com.kii.bas.service.schema.dao.DeviceTypeDao;
 import com.kii.bas.service.schema.dao.UpdatedInfo;
 import com.kii.bas.service.schema.entity.DeviceDescription;
 import com.kii.bas.service.schema.entity.DeviceSchema;
-import com.kii.bas.service.schema.viewentity.DeviceDescriptionMap;
+import com.kii.bas.service.schema.viewentity.DeviceDescriptionStore;
 
 @Component
 public class DescriptionSchemaService {
@@ -51,13 +51,13 @@ public class DescriptionSchemaService {
 	
 	
 	@Cacheable(cacheNames = CacheConfig.LONGLIVE_CACHE, key = "'schema_full_description_complete_map'+#location")
-	public DeviceDescriptionMap getCompleteSchemaMap(String location) {
+	public DeviceDescriptionStore getCompleteSchemaMap(String location) {
 		
 		Map<String, DeviceSchema> extendsMap = schemaDao.getCompleteSchemaMap().getCompleteSchemaMap();
 		
 		Map<String, DeviceDescription> originMap = descriptionDao.getOriginSchemaMap(location);
 		
-		return new DeviceDescriptionMap(extendsMap, originMap);
+		return new DeviceDescriptionStore(extendsMap, originMap);
 	}
 	
 	

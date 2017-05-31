@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kii.bas.portal.web.config.PathUtil;
 import com.kii.bas.service.schema.ThingSchemaService;
 import com.kii.bas.service.schema.entity.DeviceDescription;
 import com.kii.bas.service.schema.entity.DeviceSchema;
 import com.kii.bas.service.schema.viewentity.DeviceFullDescription;
+import com.kii.bas.service.schema.viewentity.FullResourceEntry;
 
 @RestController
 @RequestMapping(path = {"/schema"}, consumes = {MediaType.ALL_VALUE}, produces = {
@@ -104,6 +106,16 @@ public class SchemaController {
 	public void patchDeviceDescriptionSchema(@PathVariable("name") String name, @RequestBody DeviceDescription description) {
 		
 		service.patchDeviceDescription(description, name, defaultLocale.toLanguageTag());
+	}
+	
+	
+	@RequestMapping(path = {PathUtil.BASE_SCHEMA_RESOURCE_PATH}, method = RequestMethod.GET, consumes = {MediaType.ALL_VALUE}, produces = {
+			MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public Map<String, FullResourceEntry> getResourceList(@PathVariable("bindName") String name) {
+		
+		
+		return service.getDeviceResourceByName(PathUtil.function, name).getEntityMap();
+		
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.kii.bas.service.schema;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import com.kii.bas.service.schema.dao.UpdatedInfo;
 import com.kii.bas.service.schema.entity.DeviceDescription;
 import com.kii.bas.service.schema.entity.DeviceSchema;
 import com.kii.bas.service.schema.viewentity.DeviceFullDescription;
+import com.kii.bas.service.schema.viewentity.DeviceResouceCollect;
 
 @Component
 public class ThingSchemaService {
@@ -23,6 +25,10 @@ public class ThingSchemaService {
 	
 	@Autowired
 	private DescriptionSchemaService descriptionService;
+	
+	
+	@Autowired
+	private SchemaResourceService resourceService;
 	
 	
 	public void patchDeviceType(DeviceSchema schema, String schemaName) {
@@ -93,5 +99,10 @@ public class ThingSchemaService {
 	public Map<String, DeviceSchema> getCompleteSchemaMap() {
 		
 		return schemaDao.getCompleteSchemaMap().getCompleteSchemaMap();
+	}
+	
+	public DeviceResouceCollect getDeviceResourceByName(BiFunction<String, String, String> baseUrl, String schemaName) {
+		
+		return resourceService.getCompleteSchemaMap(baseUrl).getEntityByName(schemaName);
 	}
 }

@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.kii.bas.service.schema.dao.UpdatedInfo;
 import com.kii.bas.service.schema.entity.DeviceSchema;
 
-public class DeviceSchemaMap {
+public class DeviceSchemaStore {
 	
 	
 	private final Map<String, DeviceSchema> originMap;
@@ -20,7 +20,7 @@ public class DeviceSchemaMap {
 	private final Map<String, Set<String>> treeIndex = new HashMap<>();
 	
 	
-	public DeviceSchemaMap(Map<String, DeviceSchema> input) {
+	public DeviceSchemaStore(Map<String, DeviceSchema> input) {
 		
 		this.originMap = input;
 		

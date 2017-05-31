@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import com.kii.bas.commons.cache.CacheConfig;
 import com.kii.bas.commons.store.mongo.AbstractDataAccess;
 import com.kii.bas.service.schema.entity.DeviceSchema;
-import com.kii.bas.service.schema.viewentity.DeviceSchemaMap;
+import com.kii.bas.service.schema.viewentity.DeviceSchemaStore;
 
 @Component
 public class DeviceTypeDao extends AbstractDataAccess<DeviceSchema> {
@@ -73,9 +73,9 @@ public class DeviceTypeDao extends AbstractDataAccess<DeviceSchema> {
 	
 	
 	@Cacheable(cacheNames = CacheConfig.LONGLIVE_CACHE, key = "'schema_full_complete_map'")
-	public DeviceSchemaMap getCompleteSchemaMap() {
+	public DeviceSchemaStore getCompleteSchemaMap() {
 		
-		return new DeviceSchemaMap(getOriginSchemaMap());
+		return new DeviceSchemaStore(getOriginSchemaMap());
 	}
 	
 

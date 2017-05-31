@@ -1,15 +1,10 @@
 package com.kii.bas.portal.web.controller;
 
 
-import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,10 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kii.bas.portal.web.entity.ResourceEntry;
+import com.kii.bas.portal.web.config.PathUtil;
+import com.kii.bas.service.schema.ThingSchemaService;
 
 @Controller
-@RequestMapping(path = {"/schema/resources"}, consumes = {MediaType.ALL_VALUE}, produces = {
+@RequestMapping(path = {PathUtil.BASE_SCHEMA_RESOURCE_PATH}, consumes = {MediaType.ALL_VALUE}, produces = {
 		MediaType.APPLICATION_JSON_UTF8_VALUE})
 public class SchemaResourceController {
 	
@@ -33,9 +29,14 @@ public class SchemaResourceController {
 	@Autowired
 	private ResourceLoader loader;
 	
+	@Autowired
+	private ThingSchemaService service;
+	
 	@PostMapping("/{bindName}")
 	public String handleFormUpload(@RequestParam("description") String description,
-								   @RequestParam("file") MultipartFile file) {
+								   @RequestParam("file") MultipartFile file,
+								   @PathVariable("name") String schemaName,
+								   @PathVariable("bindName") String name) {
 		
 		if (!file.isEmpty()) {
 			try {
@@ -50,35 +51,33 @@ public class SchemaResourceController {
 		return "redirect:uploadFailure";
 	}
 	
+	
 	@ResponseBody
-	@RequestMapping(path = {"/{bindName}"}, method = RequestMethod.GET, consumes = {MediaType.ALL_VALUE}, produces = {
-			MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity getResourceFromPoint(@PathVariable("bindName") String name, WebRequest request, HttpServletResponse response) {
+	@RequestMapping(path = {"/{bindName}"}, method = RequestMethod.GET, consumes = {MediaType.ALL_VALUE})
+	public ResponseEntity getResourceFromPoint(@PathVariable("bindName") String name, @PathVariable("name") String schemaName, WebRequest request) {
 		
-		
-		ResourceEntry entry = new ResourceEntry();
-		entry.setMediaType(MediaType.IMAGE_PNG_VALUE);
-//		entry.setPath(new File("/Users/steven/workspace/bas-backend/bas-web-portal/src/test/resources/demo.png"));
-		entry.setSize(27945l);
-		entry.setLastModify(new Date());
-		
-		
-		if (request.checkNotModified(entry.getLastModify().getTime())) {
-			
-			ResponseEntity entity = ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
-			
-			return entity;
-		}
-		
-		Resource resource = loader.getResource("file:///Users/steven/workspace/bas-backend/bas-web-portal/src/test/resources/demo.png");
-		
-		
-		ResponseEntity<Resource> entity = ResponseEntity
-				.ok()
-				.contentLength(entry.getSize())
-				.contentType(entry.getMediaType())
-				.lastModified(entry.getLastModify().getTime())
-				.body(resource);
-		return entity;
+		return null;
+//		FullResourceEntry entry=service.getDeviceResourceByName(PathUtil.function,schemaName).getEntityMap().get(name);
+//
+//
+//		if (request.checkNotModified(entry.getResourceEntry().get.getTime())) {
+//
+//			ResponseEntity entity = ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+//
+//			return entity;
+//		}
+//
+//
+//
+//		Resource resource = loader.getResource("file:///Users/steven/workspace/bas-backend/bas-web-portal/src/test/resources/demo.png");
+//
+//
+//		ResponseEntity<Resource> entity = ResponseEntity
+//				.ok()
+//				.contentLength(entry.getSize())
+//				.contentType(entry.getMediaType())
+//				.lastModified(entry.getLastModify().getTime())
+//				.body(resource);
+//		return entity;
 	}
 }
